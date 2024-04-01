@@ -1,0 +1,46 @@
+{% extends 'layout/app-layout.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<style>
+    .btn-action {
+        margin-right: 10px; 
+    }
+
+    body {
+        background-image: url(''); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<div class="container-fluid">
+    <h1 class="text-center">Check List</h1>
+    <div class="row">
+        {% for doctor in doctor_list %}
+            <div class="col-lg-4">
+                <div class="thumbnail">
+                    <img src="{{ doctor.doctor_poster }}" class="img-responsive" alt="Doctor Poster">
+                    <div class="caption">
+                        <h3>{{ doctor.name }}</h3>
+                        <p>Specialties: {{ doctor.specialties }}</p>
+                        <p>Contact Number: {{ doctor.mobile_number }}</p>
+                        <p>Checked In: {{ doctor.available }}</p>
+                        <p>
+                            <a href="{% url 'update' doctor.id %}" class="btn btn-success btn-action"><i class=" fas fa-medkit"></i></a>
+                            <a href="{% url 'delete' doctor.id %}" class="btn btn-danger btn-action"><i class="fas fa-skull-crossbones"></i></a>
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                </div><div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
